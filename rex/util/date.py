@@ -6,7 +6,6 @@ import dateutil.relativedelta as dtrel
 
 
 class WeekdayMap:
-
     days_en = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"]
     days_de = ["MO", "DI", "MI", "DO", "FR", "SA", "SO"]
 
