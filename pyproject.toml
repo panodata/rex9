@@ -1,0 +1,163 @@
+# ==================
+# Project definition
+# ==================
+
+# Derived from https://peps.python.org/pep-0621/
+
+[project]
+name = "rex"
+version = "0.0.0"
+description = "Public transport routing based on time, locations, interests, and heuristics"
+readme = "README.rst"
+requires-python = ">=3.8"
+license = {text = "AGPL"}
+keywords = [
+  "open data",
+  "public transport",
+  "routing",
+]
+authors = [
+  {name = "Richard Pobering", email = "richard.pobering@panodata.org"},
+  {name = "Andreas Motl", email = "andreas.motl@panodata.org"},
+]
+classifiers = [
+  "Development Status :: 1 - Planning",
+  "Environment :: Console",
+  "Environment :: Web Environment",
+  "Intended Audience :: Customer Service",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Education",
+  "Intended Audience :: Information Technology",
+  "Intended Audience :: Telecommunications Industry",
+  "License :: OSI Approved :: GNU Affero General Public License v3",
+  "Operating System :: MacOS :: MacOS X",
+  "Operating System :: POSIX :: Linux",
+  "Operating System :: Unix",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Communications",
+  "Topic :: Education",
+  "Topic :: Home Automation",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Utilities",
+]
+
+dependencies = [
+  "click<=9",
+  "colorlog<7",
+  "pyhafas==0.4",
+  "python-dateutil<3",
+]
+
+[project.optional-dependencies]
+develop = [
+  "black<23",
+  "mypy==1.5.1",
+  "poethepoet<1",
+  "pyproject-fmt<0.14",
+  "ruff==0.0.284",
+  "validate-pyproject<0.14",
+]
+release = [
+  "build<1",
+  'minibump<1; python_version >= "3.10"',
+  "twine<5",
+]
+test = [
+  "coverage<7",
+  "pytest<8",
+]
+[tool.setuptools]
+# https://setuptools.pypa.io/en/latest/userguide/package_discovery.html
+packages = ["rex"]
+
+[project.urls]
+changelog = "https://github.com/panodata/rex/blob/main/CHANGES.md"
+documentation = "https://github.com/panodata/rex"
+homepage = "https://github.com/panodata/rex"
+repository = "https://github.com/panodata/rex"
+[project.scripts]
+rex = "rex.cli:cli"
+[tool.black]
+line-length = 120
+
+[tool.isort]
+profile = "black"
+skip_glob = "**/site-packages/**"
+skip_gitignore = false
+
+[tool.pytest.ini_options]
+minversion = "2.0"
+addopts = """
+  -rfEX -p pytester --strict-markers --verbosity=3
+  """
+log_level = "DEBUG"
+log_cli_level = "DEBUG"
+testpaths = ["tests"]
+xfail_strict = true
+markers = [
+]
+
+[tool.coverage.run]
+branch = false
+source = ["rex"]
+
+[tool.coverage.report]
+fail_under = 0
+show_missing = true
+omit = [
+]
+
+[tool.mypy]
+packages = ["rex"]
+exclude = [
+]
+check_untyped_defs = true
+ignore_missing_imports = true
+implicit_optional = true
+install_types = true
+no_implicit_optional = true
+non_interactive = true
+show_error_codes = true
+strict_equality = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+
+[tool.ruff]
+line-length = 120
+
+
+# ===================
+# Tasks configuration
+# ===================
+
+[tool.poe.tasks]
+format = [
+  { cmd = "black ." },
+  # Configure Ruff not to auto-fix (remove!):
+  # unused imports (F401), unused variables (F841), `print` statements (T201), and commented-out code (ERA001).
+  { cmd = "ruff --fix --ignore=ERA --ignore=F401 --ignore=F841 --ignore=T20 --ignore=ERA001 ." },
+  { cmd = "pyproject-fmt pyproject.toml" },
+]
+
+lint = [
+  { cmd = "ruff ." },
+  { cmd = "black --check ." },
+  { cmd = "validate-pyproject pyproject.toml" },
+  { cmd = "mypy" },
+]
+test = [
+  { cmd = "pytest" },
+]
+build = { cmd = "python -m build" }
+check = ["lint", "test"]
+
+release = [
+  { cmd = "minibump bump --relax patch" },
+  { cmd = "python -m build" },
+  { cmd = "twine upload --skip-existing dist/*.tar.gz dist/*.whl" },
+]
