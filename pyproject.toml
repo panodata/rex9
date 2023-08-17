@@ -68,7 +68,7 @@ release = [
   "twine<5",
 ]
 test = [
-  "coverage<7",
+  "coverage<8",
   "pytest<8",
 ]
 [tool.setuptools]
