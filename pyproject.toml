@@ -49,6 +49,7 @@ classifiers = [
 dependencies = [
   "click<=9",
   "colorlog<7",
+  "markdown2<3",
   "pyhafas==0.4",
   "python-dateutil<3",
 ]
