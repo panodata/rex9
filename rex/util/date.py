@@ -1,6 +1,7 @@
 # Copyright (c) 2023, The Panodata developers and contributors.
 # Distributed under the terms of the AGPLv3 license, see LICENSE.
 
+import typing as t
 import datetime as dt
 import dateutil.relativedelta as dtrel
 
@@ -33,3 +34,7 @@ def next_date_by_weekday(weekday: str, start=dt.date.today()):
 
 def format_date_weekday(datetime: dt.datetime):
     return f"{datetime} ({datetime.strftime('%A')})"
+
+
+def format_time(value: t.Union[dt.datetime, dt.time]) -> str:
+    return value.strftime("%H:%M")

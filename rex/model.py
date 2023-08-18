@@ -7,22 +7,32 @@ import io
 import json
 import typing as t
 
-from pyhafas.types.fptf import Station
+from pyhafas.types.fptf import Station, Journey
 
 
 @dataclasses.dataclass
-class TravelLocation:
+class TravelPlanLocation:
+    """
+    Represent a single travel location.
+    """
+
     origin: Station
     destination: Station
     departure: t.Optional[dt.datetime] = None
     arrival: t.Optional[dt.datetime] = None
+    hafas_journeys: t.List[Journey] = dataclasses.field(default_factory=list)
+    travel_journeys: t.List["TravelJourney"] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
 class TravelPlan:
-    locations: t.List[TravelLocation] = dataclasses.field(default_factory=list)
+    """
+    Represent multiple travel locations.
+    """
 
-    def append(self, *items: TravelLocation):
+    locations: t.List[TravelPlanLocation] = dataclasses.field(default_factory=list)
+
+    def append(self, *items: TravelPlanLocation):
         for item in items:
             self.locations.append(item)
 
@@ -35,3 +45,30 @@ class TravelPlan:
             buffer.write("\n")
         buffer.seek(0)
         return buffer.read()
+
+
+@dataclasses.dataclass
+class TravelJourneySegment:
+    """
+    Represent a single travel segment.
+    """
+
+    time: str
+    transport: str
+    details: str
+    status: t.Optional[str] = None
+
+
+@dataclasses.dataclass
+class TravelJourney:
+    """
+    Represent a whole travel journey.
+    """
+
+    duration: dt.timedelta
+    date: dt.date
+    segments: t.List[TravelJourneySegment] = dataclasses.field(default_factory=list)
+
+    def append(self, *items: TravelJourneySegment):
+        for item in items:
+            self.segments.append(item)
