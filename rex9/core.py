@@ -9,9 +9,10 @@ import datetime as dt
 from pyhafas import HafasClient
 from pyhafas.profile import DBProfile
 
-from rex9.model import TravelPlanLocation, TravelPlan, TravelJourney, TravelJourneySegment
+from rex9.model import TravelPlanLocation, TravelPlan, TravelJourney, TravelJourneySegment, TimeMode
 from rex9.util.cli import split_list
 from rex9.util.date import next_date_by_weekday, format_date_weekday, format_time
+from rex9.util.pyhafas import query_for
 
 logger = logging.getLogger()
 
@@ -84,14 +85,25 @@ def compute_journey(plan: TravelPlan):
     """
     client = HafasClient(DBProfile())
     for location in plan.locations:
-        location.hafas_journeys = client.journeys(
-            origin=location.origin,
-            destination=location.destination,
-            date=location.departure or location.arrival,
-            max_changes=DEFAULT_MAX_CHANGES,
-            min_change_time=DEFAULT_MIN_CHANGE_TIME,
-        )
+        if location.departure and location.arrival:
+            raise ValueError("departure and arrival are mutually exclusive")
 
+        # Either query by departure time (default), or by arrival time.
+        mode = TimeMode.DEPARTURE
+        when = location.departure
+        if location.arrival:
+            mode = TimeMode.ARRIVAL
+            when = location.arrival
+        with query_for(client, mode):
+            location.hafas_journeys = client.journeys(
+                origin=location.origin,
+                destination=location.destination,
+                date=when,
+                max_changes=DEFAULT_MAX_CHANGES,
+                min_change_time=DEFAULT_MIN_CHANGE_TIME,
+            )
+
+        # Iterate journey recommendations.
         for journey in location.hafas_journeys:
             travel_journey = TravelJourney(duration=journey.duration, date=journey.date)
             for leg in journey.legs:

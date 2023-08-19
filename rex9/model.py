@@ -6,6 +6,7 @@ import dataclasses
 import io
 import json
 import typing as t
+from enum import Enum
 
 from pyhafas.types.fptf import Station, Journey
 
@@ -72,3 +73,12 @@ class TravelJourney:
     def append(self, *items: TravelJourneySegment):
         for item in items:
             self.segments.append(item)
+
+
+class TimeMode(Enum):
+    """
+    Represent a mode whether to compute journey by departure or arrival time.
+    """
+
+    DEPARTURE = "departure"
+    ARRIVAL = "arrival"
