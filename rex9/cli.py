@@ -19,7 +19,7 @@ def help_plan():
 
     Synopsis
     ========
-    rex9 travel --from=Oranienburg --to=Kopenhagen --stops=Fürstenberg,Mildenberg --on=do-di
+    rex9 travel --from=Oranienburg --to=Stralsund --stops=Fürstenberg,Mildenberg --on=do-di
     """
 
 

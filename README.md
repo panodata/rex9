@@ -27,7 +27,7 @@ pip install --editable=.[develop,docs,test]
 ## Usage
 
 ```shell
-rex9 travel --from=Oranienburg --to=Kopenhagen --stops=Fürstenberg,Mildenberg --on=do-di
+rex9 travel --from=Oranienburg --to=Stralsund --stops=Fürstenberg,Mildenberg --on=do-di
 ```
 
 
