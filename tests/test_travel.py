@@ -3,12 +3,12 @@
 
 from click.testing import CliRunner
 
-from rex.cli import cli
+from rex9.cli import cli
 
 
 def test_travel_ascii(caplog):
     """
-    CLI test: Invoke example `rex travel` command.
+    CLI test: Invoke example `rex9 travel` command.
     """
     runner = CliRunner()
 
@@ -24,7 +24,7 @@ def test_travel_ascii(caplog):
 
 def test_travel_html(caplog):
     """
-    CLI test: Invoke example `rex travel` command with HTML output.
+    CLI test: Invoke example `rex9 travel` command with HTML output.
     """
     runner = CliRunner()
 

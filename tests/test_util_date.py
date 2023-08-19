@@ -5,7 +5,7 @@ import datetime as dt
 
 import pytest
 
-from rex.util.date import next_date_by_weekday
+from rex9.util.date import next_date_by_weekday
 
 
 def test_weekdaymap_de():

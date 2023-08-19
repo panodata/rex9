@@ -9,9 +9,9 @@ import datetime as dt
 from pyhafas import HafasClient
 from pyhafas.profile import DBProfile
 
-from rex.model import TravelPlanLocation, TravelPlan, TravelJourney, TravelJourneySegment
-from rex.util.cli import split_list
-from rex.util.date import next_date_by_weekday, format_date_weekday, format_time
+from rex9.model import TravelPlanLocation, TravelPlan, TravelJourney, TravelJourneySegment
+from rex9.util.cli import split_list
+from rex9.util.date import next_date_by_weekday, format_date_weekday, format_time
 
 logger = logging.getLogger()
 

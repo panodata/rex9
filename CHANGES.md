@@ -1,14 +1,9 @@
-#############
-rex changelog
-#############
+# Changelog 
 
 
-in progress
-===========
+## in progress
 
 
-2023-08-xx 0.0.0
-================
-
+## 2023-08-xx 0.0.0
 - Initial thing
 - Journey planning basics and HTML output
