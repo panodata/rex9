@@ -5,7 +5,7 @@
 # Derived from https://peps.python.org/pep-0621/
 
 [project]
-name = "rex"
+name = "rex9"
 version = "0.0.0"
 description = "Public transport routing based on time, locations, interests, and heuristics"
 readme = "README.rst"
@@ -74,15 +74,16 @@ test = [
 ]
 [tool.setuptools]
 # https://setuptools.pypa.io/en/latest/userguide/package_discovery.html
-packages = ["rex"]
+packages = ["rex9"]
 
 [project.urls]
-changelog = "https://github.com/panodata/rex/blob/main/CHANGES.md"
-documentation = "https://github.com/panodata/rex"
-homepage = "https://github.com/panodata/rex"
-repository = "https://github.com/panodata/rex"
+changelog = "https://github.com/panodata/rex9/blob/main/CHANGES.md"
+documentation = "https://github.com/panodata/rex9"
+homepage = "https://github.com/panodata/rex9"
+repository = "https://github.com/panodata/rex9"
 [project.scripts]
-rex = "rex.cli:cli"
+rex = "rex9.cli:cli"
+rex9 = "rex9.cli:cli"
 [tool.black]
 line-length = 120
 
@@ -105,7 +106,7 @@ markers = [
 
 [tool.coverage.run]
 branch = false
-source = ["rex"]
+source = ["rex9"]
 
 [tool.coverage.report]
 fail_under = 0
@@ -114,7 +115,7 @@ omit = [
 ]
 
 [tool.mypy]
-packages = ["rex"]
+packages = ["rex9"]
 exclude = [
 ]
 check_untyped_defs = true

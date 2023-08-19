@@ -7,8 +7,8 @@ from contextlib import redirect_stdout
 import click as click
 import markdown2
 
-from rex.core import make_travelplan, compute_journey
-from rex.util.cli import boot_click, docstring_format_verbatim, split_list
+from rex9.core import make_travelplan, compute_journey
+from rex9.util.cli import boot_click, docstring_format_verbatim, split_list
 
 logger = logging.getLogger()
 
@@ -19,12 +19,12 @@ def help_plan():
 
     Synopsis
     ========
-    rex travel --from=Oranienburg --to=Kopenhagen --stops=Fürstenberg,Mildenberg --on=do-di
+    rex9 travel --from=Oranienburg --to=Kopenhagen --stops=Fürstenberg,Mildenberg --on=do-di
     """
 
 
 @click.group()
-@click.version_option(package_name="rex")
+@click.version_option(package_name="rex9")
 @click.option("--verbose", is_flag=True, required=False, help="Turn on logging")
 @click.option("--debug", is_flag=True, required=False, help="Turn on logging with debug level")
 @click.pass_context

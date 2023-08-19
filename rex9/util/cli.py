@@ -7,7 +7,7 @@ import typing as t
 
 import click
 
-from rex.util.common import setup_logging
+from rex9.util.common import setup_logging
 
 logger = logging.getLogger(__name__)
 
