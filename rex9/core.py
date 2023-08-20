@@ -9,7 +9,7 @@ import datetime as dt
 from pyhafas import HafasClient
 from pyhafas.profile import DBProfile
 
-from rex9.model import TravelPlanLocation, TravelPlan, TravelJourney, TravelJourneySegment, TimeMode
+from rex9.model import TravelPlanSegment, TravelPlan, TravelJourney, TravelJourneySegment, TimeMode
 from rex9.util.cli import split_list
 from rex9.util.date import next_date_by_weekday, format_date_weekday, format_time
 from rex9.util.pyhafas import query_for
@@ -59,52 +59,54 @@ def make_travelplan(origin: str, destination: str, stops: t.List[str], when: str
         segment_departure = datetime_begin
         for stop in stops:
             location_stop = client.locations(stop)[0]
-            segment = TravelPlanLocation(origin=location_start, destination=location_stop, departure=segment_departure)
+            segment = TravelPlanSegment(origin=location_start, destination=location_stop, departure=segment_departure)
             plan.append(segment)
             location_start = location_stop
             segment_departure += DEFAULT_STOP_DELTA
-        last_segment = TravelPlanLocation(
+        last_segment = TravelPlanSegment(
             origin=location_start, destination=location_remote, departure=segment_departure
         )
         plan.append(last_segment)
     else:
-        trip_outbound = TravelPlanLocation(origin=location_home, destination=location_remote, departure=datetime_begin)
+        trip_outbound = TravelPlanSegment(origin=location_home, destination=location_remote, departure=datetime_begin)
         plan.append(trip_outbound)
 
-    trip_return = TravelPlanLocation(origin=location_remote, destination=location_home, arrival=datetime_end)
+    trip_return = TravelPlanSegment(origin=location_remote, destination=location_home, arrival=datetime_end)
     plan.append(trip_return)
 
-    logger.debug(f"Travel plan draft: Locations\n{plan}")
+    logger.debug(f"Travel plan draft: Segments\n{plan}")
 
     return plan
 
 
 def compute_journey(plan: TravelPlan):
     """
-    Enrich travel plan draft with HAFAS journey information.
+    Resolve travel plan draft using HAFAS journey information.
     """
     client = HafasClient(DBProfile())
-    for location in plan.locations:
-        if location.departure and location.arrival:
+    for segment in plan.segments:
+        if segment.departure and segment.arrival:
             raise ValueError("departure and arrival are mutually exclusive")
 
         # Either query by departure time (default), or by arrival time.
         mode = TimeMode.DEPARTURE
-        when = location.departure
-        if location.arrival:
+        when = segment.departure
+        if segment.arrival:
             mode = TimeMode.ARRIVAL
-            when = location.arrival
+            when = segment.arrival
         with query_for(client, mode):
-            location.hafas_journeys = client.journeys(
-                origin=location.origin,
-                destination=location.destination,
+            segment.hafas_journeys = client.journeys(
+                origin=segment.origin,
+                destination=segment.destination,
                 date=when,
                 max_changes=DEFAULT_MAX_CHANGES,
                 min_change_time=DEFAULT_MIN_CHANGE_TIME,
             )
 
-        # Iterate journey recommendations.
-        for journey in location.hafas_journeys:
+        # Iterate HAFAS journey recommendations.
+        # - In:  HAFAS journeys and legs/trips.
+        # - Out: TravelJourney and TravelJourneySegment entities.
+        for journey in segment.hafas_journeys:
             travel_journey = TravelJourney(duration=journey.duration, date=journey.date)
             for leg in journey.legs:
                 label = str(leg.mode.value)
@@ -125,4 +127,4 @@ def compute_journey(plan: TravelPlan):
                     item.status = f"Delays: {leg.departureDelay} {leg.arrivalDelay}"
                 travel_journey.append(item)
 
-            location.travel_journeys.append(travel_journey)
+            segment.travel_journeys.append(travel_journey)

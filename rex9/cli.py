@@ -52,7 +52,7 @@ def travel(ctx: click.Context, origin: str, destination: str, stops: str, when: 
     buffer = io.StringIO()
     with redirect_stdout(buffer):
         print("# Travel plan\n")
-        for segment in plan.locations:
+        for segment in plan.segments:
             print(f"## Connections from {segment.origin.name} to {segment.destination.name}")
             print()
             for journey in segment.travel_journeys:

@@ -11,10 +11,42 @@ from enum import Enum
 from pyhafas.types.fptf import Station, Journey
 
 
-@dataclasses.dataclass
-class TravelPlanLocation:
+class TimeMode(Enum):
     """
-    Represent a single travel location.
+    Whether to compute journey by departure or arrival time.
+    """
+
+    DEPARTURE = "departure"
+    ARRIVAL = "arrival"
+
+
+@dataclasses.dataclass
+class TravelPlan:
+    """
+    A complete travel plan draft, including multiple journeys.
+    """
+
+    segments: t.List["TravelPlanSegment"] = dataclasses.field(default_factory=list)
+
+    def append(self, *items: "TravelPlanSegment"):
+        for item in items:
+            self.segments.append(item)
+
+    def __str__(self):
+        buffer = io.StringIO()
+        for location in self.segments:
+            data = location.origin.__dict__
+            data["when"] = {"departure": str(location.departure), "arrival": str(location.arrival)}
+            buffer.write(json.dumps(data, indent=2))
+            buffer.write("\n")
+        buffer.seek(0)
+        return buffer.read()
+
+
+@dataclasses.dataclass
+class TravelPlanSegment:
+    """
+    A single journey of a travel plan.
     """
 
     origin: Station
@@ -26,59 +58,29 @@ class TravelPlanLocation:
 
 
 @dataclasses.dataclass
-class TravelPlan:
+class TravelJourney:
     """
-    Represent multiple travel locations.
+    Represent a whole travel journey.
+    An entity representing a journey, possibly with multiple vehicles.
     """
 
-    locations: t.List[TravelPlanLocation] = dataclasses.field(default_factory=list)
+    duration: dt.timedelta
+    date: dt.date
+    segments: t.List["TravelJourneySegment"] = dataclasses.field(default_factory=list)
 
-    def append(self, *items: TravelPlanLocation):
+    def append(self, *items: "TravelJourneySegment"):
         for item in items:
-            self.locations.append(item)
-
-    def __str__(self):
-        buffer = io.StringIO()
-        for location in self.locations:
-            data = location.origin.__dict__
-            data["when"] = {"departure": str(location.departure), "arrival": str(location.arrival)}
-            buffer.write(json.dumps(data, indent=2))
-            buffer.write("\n")
-        buffer.seek(0)
-        return buffer.read()
+            self.segments.append(item)
 
 
 @dataclasses.dataclass
 class TravelJourneySegment:
     """
     Represent a single travel segment.
+    An entity representing a part of a journey with a single vehicle.
     """
 
     time: str
     transport: str
     details: str
     status: t.Optional[str] = None
-
-
-@dataclasses.dataclass
-class TravelJourney:
-    """
-    Represent a whole travel journey.
-    """
-
-    duration: dt.timedelta
-    date: dt.date
-    segments: t.List[TravelJourneySegment] = dataclasses.field(default_factory=list)
-
-    def append(self, *items: TravelJourneySegment):
-        for item in items:
-            self.segments.append(item)
-
-
-class TimeMode(Enum):
-    """
-    Represent a mode whether to compute journey by departure or arrival time.
-    """
-
-    DEPARTURE = "departure"
-    ARRIVAL = "arrival"

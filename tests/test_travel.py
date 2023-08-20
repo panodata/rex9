@@ -19,7 +19,7 @@ def test_travel_ascii(caplog):
     )
     assert result.exit_code == 0
 
-    assert "Travel plan draft: Locations" in caplog.text
+    assert "Travel plan draft: Segments" in caplog.text
 
 
 def test_travel_html(caplog):
@@ -35,5 +35,5 @@ def test_travel_html(caplog):
     )
     assert result.exit_code == 0
 
-    assert "Travel plan draft: Locations" in caplog.text
+    assert "Travel plan draft: Segments" in caplog.text
     assert "<html>" in result.output
