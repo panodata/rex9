@@ -30,12 +30,19 @@ rex9 travel --from=Oranienburg --to=Stralsund --stops=Fürstenberg,Mildenberg --
 
 ## Setup
 
+Acquire source code and install development sandbox.
 ```shell
 git clone https://github.com/panodata/rex9
 cd rex9
 python3 -m venv .venv
 source .venv/bin/activate
 pip install --editable='.[develop,docs,test]'
+```
+
+Run linters and software tests:
+```shell
+source .venv/bin/activate
+poe check
 ```
 
 
