@@ -1,7 +1,6 @@
 # Backlog
 
 ## Iteration +1
-- Colored terminal output
 - Travel time maps
 - Add tabular timetable rendering
 
@@ -23,3 +22,4 @@
 - HAFAS: Fix return journey wrt. arrival time
 - Naming things: Segments
 - HAFAS: Parse and render remarks
+- Colored terminal output
