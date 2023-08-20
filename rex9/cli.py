@@ -9,6 +9,7 @@ import markdown2
 
 from rex9.core import make_travelplan, compute_journey
 from rex9.util.cli import boot_click, docstring_format_verbatim, split_list
+from rex9.util.format import CliFormatter as cf
 
 logger = logging.getLogger()
 
@@ -49,19 +50,30 @@ def travel(ctx: click.Context, origin: str, destination: str, stops: str, when: 
     plan = make_travelplan(origin, destination, split_list(stops), when)
     compute_journey(plan)
 
+    from rich.console import Console
+
+    c = Console(width=100, highlighter=None)
+
     buffer = io.StringIO()
     with redirect_stdout(buffer):
         print("# Travel plan\n")
         for segment in plan.segments:
-            print(f"## Connections from {segment.origin.name} to {segment.destination.name}")
+            first_journey_date = segment.first_journey_date
+            c.print(
+                f"## Connections from {cf.loc_pri(segment.origin.name)} to {cf.loc_pri(segment.destination.name)} "
+                f"on {cf.time_sec(segment.first_journey_date)}"
+            )
             print()
             for journey in segment.travel_journeys:
-                print(f"### Duration {journey.duration} on {journey.date}")
+                journey_date = ""
+                if journey.date != first_journey_date:
+                    journey_date = f" on {cf.time_sec(journey.date)}"
+                c.print(f"### Duration {cf.time_pri(journey.duration)}{journey_date}")
                 for segment in journey.segments:
                     remarks = ""
                     if segment.remarks:
                         remarks = "\n" + segment.remarks
-                    print(f"- {segment.time}, {segment.transport}; {segment.details}{remarks}")
+                    c.print(f"- {cf.time_sec(segment.time)}, {segment.transport}; {segment.details}{remarks}")
                 print()
             print()
 

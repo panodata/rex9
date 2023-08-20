@@ -15,6 +15,7 @@ from rex9.model import TravelPlanSegment, TravelPlan, TravelJourney, TravelJourn
 from rex9.util.cli import split_list
 from rex9.util.date import next_date_by_weekday, format_date_weekday, format_time
 from rex9.util.pyhafas import query_for
+from rex9.util.format import CliFormatter as cf
 
 logger = logging.getLogger()
 
@@ -121,7 +122,7 @@ def compute_journey(plan: TravelPlan):
                 platforms = ""
                 if leg.departurePlatform is not None and leg.arrivalPlatform is not None:
                     platforms = f"Platforms {leg.departurePlatform}/{leg.arrivalPlatform} "
-                details = f"{platforms}from {leg.origin.name} to {leg.destination.name}"
+                details = f"{platforms}from {cf.loc_sec(leg.origin.name)} to {cf.loc_sec(leg.destination.name)}"
 
                 item = TravelJourneySegment(
                     time=f"{format_time(leg.departure.time())}-{format_time(leg.arrival.time())}",
@@ -146,6 +147,8 @@ def format_remarks(remarks: t.List[Remark]) -> t.List[str]:
         if code in DEFAULT_REMARKS_FILTER:
             continue
         text = remark.text
+        if "Auslastung" in text:
+            text = cf.warn(text)
         if remark.subject is not None:
             text = f"{remark.subject} {text}"
         part = f"{code}: {text}"
