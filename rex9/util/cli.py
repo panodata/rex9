@@ -41,7 +41,7 @@ def to_list(x: t.Any, default: t.Optional[t.List[t.Any]] = None) -> t.Optional[t
         return default
     if not isinstance(x, t.Iterable) or isinstance(x, str):
         return [x]
-    elif isinstance(x, list):
+    elif isinstance(x, list):  # noqa: RET505
         return x
     else:
         return list(x)

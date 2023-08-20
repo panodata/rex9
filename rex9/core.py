@@ -1,21 +1,20 @@
 # Copyright (c) 2023, The Panodata developers and contributors.
 # Distributed under the terms of the AGPLv3 license, see LICENSE.
 
+import datetime as dt
 import logging
 import typing as t
-
-import datetime as dt
 from textwrap import indent
 
 from pyhafas import HafasClient
 from pyhafas.profile import DBProfile
 from pyhafas.types.fptf import Remark
 
-from rex9.model import TravelPlanSegment, TravelPlan, TravelJourney, TravelJourneySegment, TimeMode
+from rex9.model import TimeMode, TravelJourney, TravelJourneySegment, TravelPlan, TravelPlanSegment
 from rex9.util.cli import split_list
-from rex9.util.date import next_date_by_weekday, format_date_weekday, format_time
-from rex9.util.pyhafas import query_for
+from rex9.util.date import format_date_weekday, format_time, next_date_by_weekday
 from rex9.util.format import CliFormatter as cf
+from rex9.util.pyhafas import query_for
 
 logger = logging.getLogger()
 

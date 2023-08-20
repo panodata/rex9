@@ -1,14 +1,14 @@
 # Copyright (c) 2023, The Panodata developers and contributors.
 # Distributed under the terms of the AGPLv3 license, see LICENSE.
 
-import datetime as dt
 import dataclasses
+import datetime as dt
 import io
 import json
 import typing as t
 from enum import Enum
 
-from pyhafas.types.fptf import Station, Journey
+from pyhafas.types.fptf import Journey, Station
 
 
 class TimeMode(Enum):
@@ -60,6 +60,7 @@ class TravelPlanSegment:
     def first_journey_date(self):
         if self.travel_journeys:
             return self.travel_journeys[0].date
+        return None
 
 
 @dataclasses.dataclass

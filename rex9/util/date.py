@@ -1,8 +1,9 @@
 # Copyright (c) 2023, The Panodata developers and contributors.
 # Distributed under the terms of the AGPLv3 license, see LICENSE.
 
-import typing as t
 import datetime as dt
+import typing as t
+
 import dateutil.relativedelta as dtrel
 
 
@@ -24,12 +25,12 @@ class WeekdayMap:
         raise KeyError(f"Weekday not found: {label}")
 
 
-def next_date_by_weekday(weekday: str, start=dt.date.today()):
+def next_date_by_weekday(weekday: str, start=None):
+    start = start or dt.date.today()
     weekday_map = WeekdayMap()
     weekday_dtrel = weekday_map.find(weekday)
     delta = dtrel.relativedelta(days=1, weekday=weekday_dtrel)
-    next_friday = start + delta
-    return next_friday
+    return start + delta
 
 
 def format_date_weekday(datetime: dt.datetime):
