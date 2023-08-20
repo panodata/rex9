@@ -6,8 +6,9 @@ from contextlib import redirect_stdout
 
 import click as click
 import markdown2
+from rich.console import Console
 
-from rex9.core import make_travelplan, compute_journey
+from rex9.core import compute_journey, make_travelplan
 from rex9.util.cli import boot_click, docstring_format_verbatim, split_list
 from rex9.util.format import CliFormatter as cf
 
@@ -43,14 +44,12 @@ def cli(ctx: click.Context, verbose: bool, debug: bool):
 @click.option("--to", "destination", type=str, required=True)
 @click.option("--stops", "stops", type=str, required=False)
 @click.option("--on", "when", type=str, required=False)
-@click.option("--format", type=str, required=False, default="markdown")
+@click.option("--format", "_format", type=str, required=False, default="markdown")
 @click.pass_context
-def travel(ctx: click.Context, origin: str, destination: str, stops: str, when: str, format: str):
+def travel(ctx: click.Context, origin: str, destination: str, stops: str, when: str, _format: str):
     logger.info(f"Computing journey from {origin} to {destination}")
     plan = make_travelplan(origin, destination, split_list(stops), when)
     compute_journey(plan)
-
-    from rich.console import Console
 
     c = Console(width=100, highlighter=None)
 
@@ -80,10 +79,9 @@ def travel(ctx: click.Context, origin: str, destination: str, stops: str, when: 
     buffer.seek(0)
     markdown = buffer.read()
 
-    if format == "markdown":
+    if _format == "markdown":
         print(markdown)
-    elif format == "html":
-        # print(markdown)
+    elif _format == "html":
         html_body = markdown2.markdown(markdown.encode("utf-8"))
         html = f"""
 <html>
@@ -97,4 +95,4 @@ def travel(ctx: click.Context, origin: str, destination: str, stops: str, when: 
         """
         print(html)
     else:
-        raise ValueError(f"Unknown output format: {format}")
+        raise ValueError(f"Unknown output format: {_format}")
