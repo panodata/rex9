@@ -35,7 +35,7 @@ git clone https://github.com/panodata/rex9
 cd rex9
 python3 -m venv .venv
 source .venv/bin/activate
-pip install --editable=.[develop,docs,test]
+pip install --editable='.[develop,docs,test]'
 ```
 
 
