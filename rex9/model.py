@@ -56,6 +56,11 @@ class TravelPlanSegment:
     hafas_journeys: t.List[Journey] = dataclasses.field(default_factory=list)
     travel_journeys: t.List["TravelJourney"] = dataclasses.field(default_factory=list)
 
+    @property
+    def first_journey_date(self):
+        if self.travel_journeys:
+            return self.travel_journeys[0].date
+
 
 @dataclasses.dataclass
 class TravelJourney:

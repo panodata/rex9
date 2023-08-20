@@ -52,6 +52,8 @@ dependencies = [
   "markdown2<3",
   "pyhafas==0.4",
   "python-dateutil<3",
+  "rich<14",
+  "strip-ansi<0.2",
 ]
 
 [project.optional-dependencies]

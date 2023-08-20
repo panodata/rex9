@@ -9,3 +9,4 @@
 - Journey planning basics and HTML output
 - Fix return journey wrt. arrival time
 - Process HAFAS remarks
+- Add colored terminal output
