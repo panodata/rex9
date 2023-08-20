@@ -58,7 +58,10 @@ def travel(ctx: click.Context, origin: str, destination: str, stops: str, when: 
             for journey in segment.travel_journeys:
                 print(f"### Duration {journey.duration} on {journey.date}")
                 for segment in journey.segments:
-                    print(f"- {segment.time}, {segment.transport}; {segment.details}")
+                    remarks = ""
+                    if segment.remarks:
+                        remarks = "\n" + segment.remarks
+                    print(f"- {segment.time}, {segment.transport}; {segment.details}{remarks}")
                 print()
             print()
 

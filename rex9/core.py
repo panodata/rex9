@@ -5,9 +5,11 @@ import logging
 import typing as t
 
 import datetime as dt
+from textwrap import indent
 
 from pyhafas import HafasClient
 from pyhafas.profile import DBProfile
+from pyhafas.types.fptf import Remark
 
 from rex9.model import TravelPlanSegment, TravelPlan, TravelJourney, TravelJourneySegment, TimeMode
 from rex9.util.cli import split_list
@@ -23,6 +25,9 @@ DEFAULT_ARRIVAL_TIME = dt.time(hour=17)
 DEFAULT_STOP_DELTA = dt.timedelta(days=1)
 DEFAULT_MAX_CHANGES = -1
 DEFAULT_MIN_CHANGE_TIME = 3
+
+# Suppress "Fahrzeuggebundene Einstiegshilfe vorhanden"
+DEFAULT_REMARKS_FILTER = ["A/EH"]
 
 
 def make_travelplan(origin: str, destination: str, stops: t.List[str], when: str):
@@ -122,9 +127,35 @@ def compute_journey(plan: TravelPlan):
                     time=f"{format_time(leg.departure.time())}-{format_time(leg.arrival.time())}",
                     transport=label,
                     details=details,
+                    remarks=bulletpoints(format_remarks(leg.remarks), level=2),
                 )
                 if leg.departureDelay is not None or leg.arrivalDelay is not None:
                     item.status = f"Delays: {leg.departureDelay} {leg.arrivalDelay}"
                 travel_journey.append(item)
 
             segment.travel_journeys.append(travel_journey)
+
+
+def format_remarks(remarks: t.List[Remark]) -> t.List[str]:
+    """
+    Format information from a list of FPTF Remark objects.
+    """
+    parts = []
+    for remark in remarks:
+        code = f"{remark.remark_type}/{remark.code}"
+        if code in DEFAULT_REMARKS_FILTER:
+            continue
+        text = remark.text
+        if remark.subject is not None:
+            text = f"{remark.subject} {text}"
+        part = f"{code}: {text}"
+        parts.append(part)
+    return parts
+
+
+def bulletpoints(items: t.List[str], level: int = 0):
+    """
+    Format list items as bullet points.
+    """
+    prefix = " " * (level * 2)
+    return indent("\n".join(items), prefix=f"{prefix}- ")

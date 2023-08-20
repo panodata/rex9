@@ -83,4 +83,5 @@ class TravelJourneySegment:
     time: str
     transport: str
     details: str
+    remarks: t.Optional[str] = None
     status: t.Optional[str] = None
