@@ -10,3 +10,4 @@
 - Fix return journey wrt. arrival time
 - Process HAFAS remarks
 - Add colored terminal output
+- Parse date-/time-range expressions using the Aika library
