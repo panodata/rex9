@@ -16,7 +16,7 @@ and further stops on the trip, and computes travel plan drafts using the [HAFAS]
 ## Usage
 
 ```shell
-rex9 travel --from=Oranienburg --to=Stralsund --stops=Fürstenberg,Mildenberg --on=do-di
+rex9 travel --from=Oranienburg --to=Stralsund --stops=Fürstenberg,Mildenberg --when=do-di
 ```
 
 

@@ -15,7 +15,7 @@ def test_travel_ascii(caplog):
 
     result = runner.invoke(
         cli,
-        args="travel --from=Oranienburg --to=Stralsund --stops=Fürstenberg,Mildenberg --on=do-di",
+        args="travel --from=Oranienburg --to=Stralsund --stops=Fürstenberg,Mildenberg --when=do-di",
         catch_exceptions=False,
     )
     assert result.exit_code == 0
@@ -38,7 +38,7 @@ def test_travel_html(caplog):
 
     result = runner.invoke(
         cli,
-        args="travel --from=Oranienburg --to=Stralsund --stops=Fürstenberg,Mildenberg --on=do-di --format=html",
+        args="travel --from=Oranienburg --to=Stralsund --stops=Fürstenberg,Mildenberg --when=do-di --format=html",
         catch_exceptions=False,
     )
     assert result.exit_code == 0

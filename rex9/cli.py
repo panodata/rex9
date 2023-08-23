@@ -21,7 +21,7 @@ def help_plan():
 
     Synopsis
     ========
-    rex9 travel --from=Oranienburg --to=Stralsund --stops=Fürstenberg,Mildenberg --on=do-di
+    rex9 travel --from=Oranienburg --to=Stralsund --stops=Fürstenberg,Mildenberg --when=do-di
     """
 
 
@@ -43,7 +43,7 @@ def cli(ctx: click.Context, verbose: bool, debug: bool):
 @click.option("--from", "origin", type=str, required=True)
 @click.option("--to", "destination", type=str, required=True)
 @click.option("--stops", "stops", type=str, required=False)
-@click.option("--on", "when", type=str, required=False)
+@click.option("--on", "--when", "when", type=str, required=False)
 @click.option("--format", "_format", type=str, required=False, default="markdown")
 @click.pass_context
 def travel(ctx: click.Context, origin: str, destination: str, stops: str, when: str, _format: str):
