@@ -8,13 +8,15 @@
 name = "rex9"
 version = "0.0.0"
 description = "Public transport routing based on time, locations, interests, and heuristics"
-readme = "README.rst"
+readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "AGPL"}
 keywords = [
   "open data",
   "public transport",
   "routing",
+  "travel",
+  "travel plan",
 ]
 authors = [
   {name = "Richard Pobering", email = "richard.pobering@panodata.org"},
@@ -52,7 +54,6 @@ dependencies = [
   "colorlog<7",
   "markdown2<3",
   "pyhafas==0.4",
-  "python-dateutil<3",
   "rich<14",
   "strip-ansi<0.2",
 ]
