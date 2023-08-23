@@ -3,22 +3,47 @@
 
 import datetime as dt
 
-import pytest
+from aika import DaterangeExpression
+from freezegun import freeze_time
 
-from rex9.util.date import next_date_by_weekday
-
-
-def test_weekdaymap_de():
-    date_value = next_date_by_weekday("do")
-    assert isinstance(date_value, dt.date)
+TESTDRIVE_DATETIME = "2023-08-17T23:03:17+0200"
 
 
-def test_weekdaymap_en():
-    date_value = next_date_by_weekday("su")
-    assert isinstance(date_value, dt.date)
+@freeze_time(TESTDRIVE_DATETIME)
+def test_parse_daterange_relative_months():
+    dr = DaterangeExpression(
+        default_start_time=dt.time(hour=9),
+        default_end_time=dt.time(hour=17),
+    )
+    assert (
+        dr.parse("next March")
+        == dr.parse("im März")
+        == (
+            dt.datetime(2023, 3, 1, 9, 0, 0),
+            dt.datetime(2023, 3, 31, 17, 0, 0),
+        )
+    )
+    assert (
+        dr.parse("July to December")
+        == dr.parse("Juli bis Dezember")
+        == (
+            dt.datetime(2023, 7, 1, 9, 0, 0),
+            dt.datetime(2023, 12, 31, 17, 0, 0),
+        )
+    )
 
 
-def test_weekdaymap_fail():
-    with pytest.raises(KeyError) as ex:
-        next_date_by_weekday("foo")
-    assert ex.match("Weekday not found: foo")
+@freeze_time(TESTDRIVE_DATETIME)
+def test_parse_daterange_relative_weekdays():
+    dr = DaterangeExpression(
+        default_start_time=dt.time(hour=9),
+        default_end_time=dt.time(hour=17),
+    )
+    assert (
+        dr.parse("Sat - Tue")
+        == dr.parse("Sa-Di")
+        == (
+            dt.datetime(2023, 8, 19, 9, 0, 0),
+            dt.datetime(2023, 8, 22, 17, 0, 0),
+        )
+    )

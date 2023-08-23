@@ -19,6 +19,9 @@ and further stops on the trip, and computes travel plan drafts using the [HAFAS]
 rex9 travel --from=Oranienburg --to=Stralsund --stops=Fürstenberg,Mildenberg --when=do-di
 ```
 
+The `--when` argument accepts all date-/time-range expressions as provided by the [Aika]
+package, which currently supports English and German.
+
 
 ## Glossary
 
@@ -46,4 +49,5 @@ poe check
 ```
 
 
+[Aika]: https://github.com/panodata/aika
 [HAFAS]: https://de.wikipedia.org/wiki/HAFAS

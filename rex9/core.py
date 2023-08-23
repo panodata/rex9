@@ -6,13 +6,13 @@ import logging
 import typing as t
 from textwrap import indent
 
+from aika import DaterangeExpression
 from pyhafas import HafasClient
 from pyhafas.profile import DBProfile
 from pyhafas.types.fptf import Remark
 
 from rex9.model import TimeMode, TravelJourney, TravelJourneySegment, TravelPlan, TravelPlanSegment
-from rex9.util.cli import split_list
-from rex9.util.date import format_date_weekday, format_time, next_date_by_weekday
+from rex9.util.date import format_date_weekday, format_time
 from rex9.util.format import CliFormatter as cf
 from rex9.util.pyhafas import query_for
 
@@ -41,11 +41,8 @@ def make_travelplan(origin: str, destination: str, stops: t.List[str], when: str
     location_remote = client.locations(destination)[0]
 
     # Resolve departure and arrival times of home and remote locations.
-    on_begin, on_end = split_list(when, delimiter="-")
-    date_begin = next_date_by_weekday(on_begin)
-    date_end = next_date_by_weekday(on_end, start=date_begin)
-    datetime_begin = dt.datetime.combine(date_begin, DEFAULT_DEPARTURE_TIME)
-    datetime_end = dt.datetime.combine(date_end, DEFAULT_ARRIVAL_TIME)
+    dr = DaterangeExpression(default_start_time=DEFAULT_DEPARTURE_TIME, default_end_time=DEFAULT_ARRIVAL_TIME)
+    datetime_begin, datetime_end = dr.parse(when)
 
     # Report an intermediate summary.
     logger.info(
