@@ -4,13 +4,21 @@
 ## About
 
 reX9 is a public transport routing software based on time, locations, interests,
-and heuristics.
+and heuristics, with a strong aim for providing a [DWIM]-like interface.
 
 
 ## Details
 
 It obtains rough user constraints like time ranges, an optional travel destination
 and further stops on the trip, and computes travel plan drafts using the [HAFAS] API.
+
+
+## Setup
+
+Install the most recent version of reX9.
+```shell
+pip install --upgrade 'git+https://github.com/panodata/rex9'
+```
 
 
 ## Usage
@@ -31,7 +39,7 @@ package, which currently supports English and German.
 - Leg or Trip: A HAFAS entity representing a part of a journey with a single vehicle.
 
 
-## Setup
+## Development
 
 Acquire source code and install development sandbox.
 ```shell
@@ -50,4 +58,5 @@ poe check
 
 
 [Aika]: https://github.com/panodata/aika
+[DWIM]: https://en.wikipedia.org/wiki/DWIM
 [HAFAS]: https://de.wikipedia.org/wiki/HAFAS
