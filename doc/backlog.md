@@ -11,6 +11,10 @@
 - Add personal preference subsystem
 - Add `rex discover` for regional discovery travels
 - Find cellular coverage API
+- Add features with packages:
+  - Maya
+  - osmnx
+  - pypandoc
 
 ## Iteration +3
 - "Live" updates (while traveling)
