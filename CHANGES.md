@@ -11,3 +11,4 @@
 - Process HAFAS remarks
 - Add colored terminal output
 - Parse date-/time-range expressions using the Aika library
+- Acquire location of interest information (features) from OpenStreetMaps (OSM)
