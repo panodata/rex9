@@ -1,6 +1,21 @@
 # Travel Planning Software
 
 
+## Intermodal Journey Planners
+
+> A journey planner, trip planner, or route planner is a specialized search engine used
+> to find an optimal means of travelling between two or more given locations, sometimes
+> using more than one transport mode. Searches may be optimized on different criteria,
+> for example fastest, shortest, fewest changes, cheapest.
+>
+> They may be constrained, for example, to leave or arrive at a certain time, to avoid
+> certain waypoints, etc. A single journey may use a sequence of several modes of
+> transport, meaning the system may know about public transport services as well as
+> transport networks for private transportation.
+>
+> -- https://en.wikipedia.org/wiki/Intermodal_Journey_Planner
+
+
 ## Itinerary
 
 ### English
@@ -55,4 +70,10 @@ KDE-Itinerary funktioniert am besten in Verbindung mit KMails Itinerary-Extrakti
 - https://community.kde.org/KDE_PIM/KDE_Itinerary
 - https://discuss.kde.org/c/help/6
 - https://invent.kde.org/pim/itinerary
-- 
+
+
+## Other Apps
+- https://en.wikipedia.org/wiki/JourneyWeb
+- https://en.wikipedia.org/wiki/Citymapper
+- https://en.wikipedia.org/wiki/Transit_(app)
+- https://en.wikipedia.org/wiki/Moovit

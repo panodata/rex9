@@ -24,6 +24,11 @@
 - Upstream "Fix journey wrt. arrival time" to pyhafas
 - More translations
   - https://de.wikipedia.org/wiki/Wochentag
+- OSM river basins
+  - https://amandasaurus.github.io/osm-river-basins/
+  - https://news.ycombinator.com/item?id=37321292
+  - https://github.com/amandasaurus/osm-river-basins
+  - https://community.openstreetmap.org/t/osm-river-basins-website-to-show-how-are-rivers-in-osm-connected/102655
 
 
 ## Done

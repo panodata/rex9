@@ -51,15 +51,14 @@ can be reached in a certain amount of time.
 
 ## Resources
 
-- [APIs](api.md)
 - [Deutsche Bahn](deutsche-bahn.md)
-- [HAFAS](hafas.md)
 - [Mobile Network Coverage](mobile-network-coverage.md)
+- [Data APIs](data-api.md)
+- [Data, Standards, and Specifications](data-standards-specs.md)
 - [Organizations](organization.md)
 - [Scientific Resources and Papers](scientific.md)
 - [Software: Components](software-component.md)
 - [Software: Routing Engines](software-routing-engine.md)
 - [Software: Travel Planning](software-travel-planner.md)
-- [Standards and Specifications](standard-and-spec.md)
 - [Travel Time Maps](travel-time-maps.md)
 - [Unsorted](unsorted.md)

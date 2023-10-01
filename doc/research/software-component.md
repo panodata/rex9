@@ -10,3 +10,4 @@ A few other components collected on the journey.
 
 - https://github.com/derhuerst/vbb-journey-ui
 - https://github.com/derhuerst/discover-db-stations
+- https://github.com/r-transit/tidytransit

@@ -18,6 +18,13 @@ Hierarchies.
 - https://github.com/graphhopper/graphhopper/blob/master/docs/core/profiles.md
 - On waterways: https://github.com/graphhopper/graphhopper/commit/8d331af726e6b
 
+### Latent demand
+
+Work-in-progress routing engine written in Rust.
+
+- https://github.com/dabreegster/routing-engines
+- https://dabreegster.github.io/routing-engines/
+
 ### OpenRailRouting
 
 A routing engine for railways based on a forked version of the GraphHopper routing engine
@@ -43,6 +50,12 @@ High performance routing engine written in C++ designed to run on OpenStreetMap 
 - https://github.com/Project-OSRM/osrm-backend
 - https://map.project-osrm.org/
 
+### Ptolemy
+
+A simple engine for shortest path using OpenStreetMap data.
+
+https://github.com/sitegui/ptolemy
+
 ### Valhalla
 
 Valhalla is an open-source routing engine and accompanying set of libraries for use
@@ -66,6 +79,12 @@ with OpenStreetMap data. Valhalla is used within Mapzen and Mapbox services and 
 Valhalla is open-source (MIT license) and is maintained by many contributors.
 Interline continues its involvement in open-source Valhalla, providing a variety
 of products and services to help organizations and individuals use Valhalla.
+
+### Valhalla Rust
+
+> Rust wrapper around the Valhalla routing engine.
+
+https://github.com/ewilken/valhalla-rs
 
 
 ## Multimodel Routing
@@ -124,3 +143,14 @@ Nigiri is their next generation routing engine.
 - Web Interface:
   - https://europe.motis-project.de/
   - https://switzerland.motis-project.de/
+
+### Resejämföraren
+
+Travel Compare Server in English, is a multi-modal router for the Øresund/Öresund region.
+It uses OpenStreetMap data and was created by Lund Municipality in 2009. Comparison of
+time, price, carbon dioxide emissions and calorie usage for different travel options.
+
+- https://www.resejamforaren.se
+- https://wiki.openstreetmap.org/wiki/Resej%C3%A4mf%C3%B6raren
+
+-- via: https://osm-apps.zottelig.ch/#

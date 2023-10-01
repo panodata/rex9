@@ -13,3 +13,5 @@ Measuring distance by accessibility time.
   - https://github.com/GeoinfoBonn/travel-time-maps
 - https://commutetimemap.com/map?places=52.752938%253B13.245759%253B0%253B3600%253B%2523b241f4&places=53.184466%253B13.148228%253B0%253B3600%253B%25234143f4&places=53.012875%253B13.290650%253B0%253B3600%253B%2523b241f4&places=54.309631%253B13.082085%253B0%253B3600%253B%2523f441cd
 - https://web.archive.org/web/20160517192137/http://www.programmableweb.com/news/how-to-search-locations-travel-time-igeolise-traveltime-api/how-to/2016/05/10?page=2
+- https://www.opendata-oepnv.de/ht/de/showcases/detailanzeige?tx_news_pi1%5Baction%5D=detail&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Bnews%5D=253
+- https://data.wdr.de/ddj/reichweitenchecker/
