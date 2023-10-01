@@ -23,10 +23,9 @@ def test_travel_ascii(caplog):
 
     assert "Travel plan draft: Segments" in caplog.text
     assert "Fahrradmitnahme begrenzt möglich" in output
-    assert "Gransee->Neubrandenburg: Information. Erfahrungsgemäß hat dieser Zug eine hohe Auslastung." in output
+    assert "Gransee->Oranienburg: Information. Erfahrungsgemäß hat dieser Zug eine hohe Auslastung." in output
     assert (
-        "Fürstenberg(Havel)->Neubrandenburg: Information. Erfahrungsgemäß hat dieser Zug eine hohe Auslastung."
-        in output
+        "Fürstenberg(Havel)->Oranienburg: Information. Erfahrungsgemäß hat dieser Zug eine hohe Auslastung." in output
     )
 
 
