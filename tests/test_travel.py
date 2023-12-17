@@ -22,11 +22,11 @@ def test_travel_ascii(caplog):
     output = strip_ansi(str(result.output).replace("\n", ""))
 
     assert "Travel plan draft: Segments" in caplog.text
+    # assert "Information. Erfahrungsgemäß hat dieser Zug eine hohe Auslastung." in output
     assert "Fahrradmitnahme begrenzt möglich" in output
-    assert "Gransee->Oranienburg: Information. Erfahrungsgemäß hat dieser Zug eine hohe Auslastung." in output
-    assert (
-        "Fürstenberg(Havel)->Oranienburg: Information. Erfahrungsgemäß hat dieser Zug eine hohe Auslastung." in output
-    )
+    assert "keine Fahrradbeförderung möglich" in output
+    assert "Bus 838; from Bahnhof, Fürstenberg (Havel) to Mildenberg Friedhof, Zehdenick" in output
+    assert "from Gransee to Stralsund Hbf" in output
 
 
 def test_travel_html(caplog):
