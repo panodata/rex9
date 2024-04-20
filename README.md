@@ -17,7 +17,15 @@ and further stops on the trip, and computes travel plan drafts using the [HAFAS]
 
 Install the most recent version of reX9.
 ```shell
-pip install --upgrade 'git+https://github.com/panodata/rex9'
+pip install \
+  --use-pep517 --prefer-binary --no-build-isolation \
+  --upgrade 'git+https://github.com/panodata/rex9'
+```
+
+On Python 3.12, make sure to also install the `poetry` and `wheel` packages
+before running the main installation command above.
+```shell
+pip install poetry wheel
 ```
 
 
