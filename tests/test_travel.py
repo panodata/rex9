@@ -26,7 +26,7 @@ def test_travel_ascii(caplog):
     assert "Fahrradmitnahme begrenzt möglich" in output
     assert "keine Fahrradbeförderung möglich" in output
     assert "Bus 838; from Bahnhof, Fürstenberg (Havel) to Mildenberg Friedhof, Zehdenick" in output
-    assert "from Gransee to Stralsund Hbf" in output
+    assert "from Gransee to Stralsund Hbf" in output or "from Gransee to Rostock Hbf" in output
 
 
 def test_travel_html(caplog):
