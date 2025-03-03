@@ -50,7 +50,7 @@ classifiers = [
 ]
 
 dependencies = [
-  "aika==0.1",
+  "aika==0.3.0",
   "click<=9",
   "colorlog<7",
   "markdown2<3",
